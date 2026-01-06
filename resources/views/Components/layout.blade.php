@@ -8,9 +8,9 @@
 </head>
 <body>
     <nav>
-        <a href="/">Home</a>
-        <a href="/about.blade">About</a>
-        <a href="/contact.blade">Contact</a>
+        <x-nav-link href="/">Home</x-nav-link>
+        <x-nav-link href="/about">About</x-nav-link>
+        <x-nav-link href="/contact">Contact</x-nav-link>
     </nav>
 
      <!-- esto seria igual que lo de abajo<?php //echo $slot ?>-->

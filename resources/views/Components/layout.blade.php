@@ -13,6 +13,9 @@
         <a href="/contact.blade">Contact</a>
     </nav>
 
-    <?php echo $slot; ?>
+     <!-- esto seria igual que lo de abajo<?php //echo $slot ?>-->
+
+     {{ $slot }}
+
 </body>
 </html>

@@ -5,9 +5,9 @@ use App\Models\Job;
 
 
 Route::get('/', function () {
-    return view('home');
+    $jobs = Job::all();
+    dd($jobs); // Dump and die to inspect the collection
 });
-
 /*Route::get('/about', function () {
     return 'About Page';
 });//esto devuelve un string, es un ejemplo simple

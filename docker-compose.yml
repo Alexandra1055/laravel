@@ -34,6 +34,17 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: laravel_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
+
   node:
     image: node:25.2.1-bullseye
     container_name: laravel_node

@@ -19,18 +19,27 @@ Route::get('/', function () {
  */
 
 Route::get('/jobs', function (){
-    $jobs = Job::with('employer')->cursorPaginate(3);
-    return view('jobs', [
-        'jobs' => Job::all()
+    $jobs = Job::with('employer')->simplePaginate(3);
+
+    return view('jobs.index', [
+        'jobs' => $jobs
     ]);
 });
 
+Route::get('/jobs/create', function (){
+    return view('jobs.create');
+});
+
 Route::get('/jobs/{id}', function ($id) {
+
     $job = Job::find($id);
 
-    return view('job', ['job' => $job]);
+    return view('jobs.show', ['job' => $job]);
 });
+
+Route::port('/jobs', function() {
+
+})
 
 Route::get('/contact', function () {
     return view('contact');
-});

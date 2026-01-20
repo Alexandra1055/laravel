@@ -68,13 +68,25 @@ Route::patch('/jobs/{id}', function ($id) {
         'salary'=>['required']
     ]);
 
-    $job = Job::find($id);
-    $job->title = request('title');
-    $job->salary = request('salary');
-    $job->save();
+    $job = Job::findOrFail($id);
+
+    $job->update([
+        'title' => request('title'),
+        'salary' => request('salary')
+    ]);
+
+    return redirect('/jobs/' . $job->id);
 });
 
 // Destroy
 Route::delete('/jobs/{id}', function ($id) {
 
+    Job::findOrFail($id)->delete();
+
+    return redirect('/jobs');
 });
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+

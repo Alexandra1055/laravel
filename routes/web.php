@@ -17,16 +17,27 @@ Route::get('/', function () {
 }); //esto devuelve un json, para futuras apis, pero no es lo ideal
 
  */
-
+//index
 Route::get('/jobs', function (){
     $jobs = Job::with('employer')->latest()->simplePaginate(3);
-
-    return view('jobs.index', [
-        'jobs' => $jobs
+        return view('jobs.index', ['jobs' => $jobs
     ]);
+});
+
+//create
+Route::get('/jobs/create', function (){
+    return view('jobs.create');
+});
+
+//show
+Route::get('/jobs/{id}', function ($id) {
+
+    $job = Job::find($id);
+
     return view('jobs.show', ['job' => $job]);
 });
 
+//Store
 Route::post('/jobs', function() {
     request()->validate([
         'title'=>['required', 'min:3'],
@@ -42,7 +53,28 @@ Route::post('/jobs', function() {
     return redirect('/jobs');
 });
 
-Route::get('/contact', function () {
+//Edit
+Route::get('/jobs/{id}/edit', function ($id) {
 
-    return view('contact');
+    $job = Job::find($id);
+
+    return view('jobs.edit', ['job' => $job]);
+});
+
+// Update
+Route::patch('/jobs/{id}', function ($id) {
+    request()->validate([
+        'title'=>['required', 'min:3'],
+        'salary'=>['required']
+    ]);
+
+    $job = Job::find($id);
+    $job->title = request('title');
+    $job->salary = request('salary');
+    $job->save();
+});
+
+// Destroy
+Route::delete('/jobs/{id}', function ($id) {
+
 });
